@@ -38,6 +38,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDoctores));
             this.listaDoctoresBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.listaDoctoresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -55,7 +56,6 @@
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.nombreTextBox = new System.Windows.Forms.TextBox();
             this.precioTextBox = new System.Windows.Forms.TextBox();
-            this.listaDoctoresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             activoLabel = new System.Windows.Forms.Label();
             disponibilidadLabel = new System.Windows.Forms.Label();
             especialidadLabel = new System.Windows.Forms.Label();
@@ -110,7 +110,7 @@
             // nombreLabel
             // 
             nombreLabel.AutoSize = true;
-            nombreLabel.Location = new System.Drawing.Point(282, 141);
+            nombreLabel.Location = new System.Drawing.Point(282, 144);
             nombreLabel.Name = "nombreLabel";
             nombreLabel.Size = new System.Drawing.Size(69, 20);
             nombreLabel.TabIndex = 9;
@@ -166,6 +166,10 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorAddNewItem.Text = "Agregar nuevo";
+            // 
+            // listaDoctoresBindingSource
+            // 
+            this.listaDoctoresBindingSource.DataSource = typeof(BL.CitasMedicas.Doctor);
             // 
             // bindingNavigatorCountItem
             // 
@@ -306,10 +310,6 @@
             this.precioTextBox.Size = new System.Drawing.Size(419, 26);
             this.precioTextBox.TabIndex = 12;
             this.precioTextBox.TextChanged += new System.EventHandler(this.precioTextBox_TextChanged);
-            // 
-            // listaDoctoresBindingSource
-            // 
-            this.listaDoctoresBindingSource.DataSource = typeof(BL.CitasMedicas.Doctor);
             // 
             // FormDoctores
             // 
