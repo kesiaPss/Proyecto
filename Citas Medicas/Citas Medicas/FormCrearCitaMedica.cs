@@ -1,40 +1,93 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using BL.CitasMedicas;
 
 namespace Citas_Medicas
 {
     public partial class FormCrearCitaMedica : Form
     {
+        private CitasBL _citas;
         public FormCrearCitaMedica()
         {
             InitializeComponent();
+
+            _citas = new CitasBL();
+            listaPacientesBindingSource.DataSource = _citas.ObtenerCitas();
         }
 
-        private void FormCrearCitaMedica_Load(object sender, EventArgs e)
+        private void listaPacientesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
+            listaPacientesBindingSource.EndEdit();
+            var paciente = (Paciente)listaPacientesBindingSource.Current;
+
+            var resultado = _citas.GuardarPaciente(paciente);
+
+            if (resultado.Exitoso == true)
+            {
+                listaPacientesBindingSource.ResetBindings(false);
+                DeshabilitarHabilitarBotones(true);
+            }
+            else
+            {
+                MessageBox.Show(resultado.Mensaje);
+            }
+        }
+
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            _citas.AgregarPaciente();
+            listaPacientesBindingSource.MoveLast();
+
+            DeshabilitarHabilitarBotones(false);
+        }
+
+        private void DeshabilitarHabilitarBotones(bool valor)
+        {
+            bindingNavigatorMoveFirstItem.Enabled = valor;
+            bindingNavigatorMoveLastItem.Enabled = valor;
+            bindingNavigatorMovePreviousItem.Enabled = valor;
+            bindingNavigatorMoveNextItem.Enabled = valor;
+            bindingNavigatorPositionItem.Enabled = valor;
+
+            bindingNavigatorAddNewItem.Enabled = valor;
+            bindingNavigatorDeleteItem.Enabled = valor;
+            toolStripButtonCancelar.Visible = !valor;
 
         }
 
-        private void label6_Click(object sender, EventArgs e)
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            if (idTextBox.Text != "")
+            {
+                var resultado = MessageBox.Show("¿Desea Eliminar esta Cita?", "Eliminar Cita", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    var id = Convert.ToInt32(idTextBox.Text);
+                    Eliminar(id);
+                }
+            }
 
         }
 
-        private void textBox5_TextChanged(object sender, EventArgs e)
+        private void Eliminar(int id)
         {
+            var resultado = _citas.EliminarPaciente(id);
 
+            if (resultado == true)
+            {
+                listaPacientesBindingSource.ResetBindings(false);
+            }
+            else
+            {
+                MessageBox.Show("Error al eliminar Paciente");
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void toolStripButtonCancelar_Click(object sender, EventArgs e)
         {
-
+            DeshabilitarHabilitarBotones(true);
+            Eliminar(0);
         }
     }
 }
