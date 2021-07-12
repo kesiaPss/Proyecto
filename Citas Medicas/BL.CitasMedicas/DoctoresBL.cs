@@ -9,7 +9,7 @@ namespace BL.CitasMedicas
 {
    public class DoctoresBL
     {
-        public BindingList<Doctor>  ListaDoctores   { get; set; }
+        public BindingList<Doctor>  ListaDoctores { get; set; }
 
         public DoctoresBL()
         {
