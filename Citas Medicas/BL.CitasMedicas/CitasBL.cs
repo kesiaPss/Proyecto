@@ -8,20 +8,24 @@ namespace BL.CitasMedicas
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string MotivoCita { get; set; }
-        public string Medico { get; set; }
+        public int MotivoCitaId { get; set; }
+        public MotivoCita MotivoCita{ get; set; }
+        public byte[] Foto { get; set; }
+        public int MedicoId { get; set; }
+        public Medico Medico { get; set; }
         public string Fecha { get; set; }
         public string Hora { get; set; }
         public double Precio { get; set; }
+       
     }
     public class CitasBL
     {
-        contexto _contexto;
+        Contexto _contexto;
         public BindingList<Paciente> ListaPacientes { get; set; }
 
         public CitasBL()
         {
-            _contexto = new contexto();
+            _contexto = new Contexto();
             ListaPacientes = new BindingList<Paciente>();
 
            
@@ -75,7 +79,7 @@ namespace BL.CitasMedicas
 
             if (paciente.Precio <= 0)
             {
-                resultado.Mensaje = "Ingrese un pecio de la cita";
+                resultado.Mensaje = "Ingrese un precio de la cita";
                 resultado.Exitoso = false;
             }
 

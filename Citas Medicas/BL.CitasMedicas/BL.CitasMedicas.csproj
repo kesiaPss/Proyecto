@@ -53,8 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CitasBL.cs" />
-    <Compile Include="contexto.cs" />
+    <Compile Include="Contexto.cs" />
+    <Compile Include="DatosdeInicio.cs" />
     <Compile Include="DoctoresBL.cs" />
+    <Compile Include="MedicosBL.cs" />
+    <Compile Include="MotivoCitasBL.cs" />
     <Compile Include="SeguridadBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

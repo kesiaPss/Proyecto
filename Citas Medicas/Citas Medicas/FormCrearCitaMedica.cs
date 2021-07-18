@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using BL.CitasMedicas;
+using System.IO;
+using System.Drawing;
 
 namespace Citas_Medicas
 {
@@ -19,6 +21,15 @@ namespace Citas_Medicas
         {
             listaPacientesBindingSource.EndEdit();
             var paciente = (Paciente)listaPacientesBindingSource.Current;
+
+            if (fotoPictureBox.Image != null)
+            {
+                paciente.Foto = Program.imageToByteArray(fotoPictureBox.Image);
+            }
+            else
+            {
+                paciente.Foto = null;
+            }
 
             var resultado = _citas.GuardarPaciente(paciente);
 
@@ -89,6 +100,45 @@ namespace Citas_Medicas
         {
             DeshabilitarHabilitarBotones(true);
             Eliminar(0);
+        }
+
+        private void FormCrearCitaMedica_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var paciente = (Paciente)listaPacientesBindingSource.Current;
+
+            if (paciente != null)
+            { 
+            openFileDialog1.ShowDialog();
+            var archivo = openFileDialog1.FileName;
+
+                if (archivo != "")
+                {
+                    var fileInfo = new FileInfo(archivo);
+                    var fileStream = fileInfo.OpenRead();
+
+                    fotoPictureBox.Image = Image.FromStream(fileStream);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Cree un paciente antes de asignarle una foto ");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            fotoPictureBox.Image = null;
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

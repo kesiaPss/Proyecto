@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace BL.CitasMedicas
 {
-    public class contexto: DbContext
+    public class Contexto: DbContext
     {
-        public contexto(): base("Citas Medicas")
+        public Contexto(): base("Citas Medicas")
         {
-            
 
         }
-        protected override void  OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            Database.SetInitializer(new DatosdeInicio());
         }
+
         public DbSet<Paciente> Paciente { get; set; }
+        public DbSet<MotivoCita> MotivoCitas { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
